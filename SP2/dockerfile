@@ -1,0 +1,8 @@
+FROM debian
+ADD sp2bi.asm .
+ADD sp2_c.cpp .
+RUN apt-get update && apt-get install -qy wget && wget flatassembler.net/fasm-1.73.27.tgz
+RUN tar zxvf fasm-1.73.27.tgz && fasm/fasm sp2bi.asm
+RUN apt-get clean && apt-get update && apt install -qy build-essential
+RUN gcc sp2_c.cpp -S -o main.S && gcc -c main.S -o main.o && gcc main.o -o main
+CMd ./sp2bi && ./main
