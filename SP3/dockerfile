@@ -1,0 +1,8 @@
+FROM debian
+ADD sp3final.asm .
+ADD sp3_c.c .
+RUN apt-get update && apt-get install -qy wget && wget flatassembler.net/fasm-1.73.27.tgz
+RUN tar zxvf fasm-1.73.27.tgz && fasm/fasm sp3final.asm
+RUN apt-get clean && apt-get update && apt install -qy build-essential
+RUN gcc -no-pie sp3_c.c sp3final.o -o main
+CMd ./main
