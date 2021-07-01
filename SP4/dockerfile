@@ -1,0 +1,7 @@
+FROM debian
+ADD sp4_parent.cpp .
+ADD sp4_child.cpp .
+ADD data.txt .
+RUN apt-get clean && apt-get update && apt install -qy build-essential
+RUN g++ sp4_parent.cpp -o sp4_parent && g++ sp4_child.cpp -o sp4_child
+CMd ./sp4_parent
