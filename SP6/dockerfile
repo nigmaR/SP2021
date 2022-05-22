@@ -1,0 +1,7 @@
+FROM debian
+ADD sp6.cpp .
+ADD data.txt .
+ADD output.txt .
+RUN apt-get clean && apt-get update && apt install -qy build-essential
+RUN g++ sp6.cpp -pthread -o sp6
+CMD > output.txt && ./sp6
